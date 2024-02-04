@@ -5,21 +5,26 @@ const Container = styled.div`
     display: flex;
 `;
 
-const Test = styled.div`
+const Box = styled.div`
     width: 500px;
     height: 500px;
-    background-color: red;
-    margin: 5px; /* 선택 사항: Test 컴포넌트 사이의 간격을 위해 마진 추가 */
-    flex: 1; /* 자식 엘리먼트 간의 공간을 균등하게 분배 */
+    background-color: ${(props) => props.bgColor};
+`;
+const Circle = styled(Box)`
+    border-radius: 500px;
+`;
+
+const Text = styled.span`
+    font-size: 20px;
+    color: white;
 `;
 
 function App() {
     return (
         <Container>
-            <Test></Test>
-            <Test></Test>
-            <Test></Test>
-            <Test></Test>
+            <Box bgColor="teal"></Box>
+            <Box bgColor="tomato"></Box>
+            <Circle bgColor="red" />
         </Container>
     );
 }
