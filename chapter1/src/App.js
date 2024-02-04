@@ -3,6 +3,7 @@ import styled, { keyframes } from 'styled-components';
 
 const Wrapper = styled.div`
     display: flex;
+    background-color: ${(props) => props.theme.backgroundColor};
 `;
 const rotateAnimation = keyframes`
 0%{
@@ -11,6 +12,10 @@ const rotateAnimation = keyframes`
 100%{
     transform:rotate(360deg);
 } 
+`;
+const ThemeBtn = styled.button`
+    background-color: black;
+    color: white;
 `;
 const Box = styled.div`
     width: 200px;
@@ -31,6 +36,7 @@ function App() {
             <Box>
                 <span>하이</span>
             </Box>
+            <ThemeBtn></ThemeBtn>
         </Wrapper>
     );
 }

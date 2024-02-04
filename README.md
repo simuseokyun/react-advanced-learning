@@ -113,4 +113,37 @@ function App() {
 -   Theme
 
 1. index.js 에서 import { ThemeProvider } from 'styled-components'; // ThemeProvider import
-2. <App /> 을 <ThemeProvider><ThemeProvider> 로 감싸주기
+2. App /> 을 ThemeProvider>ThemeProvider> 로 감싸주기
+
+```
+const darkTheme = {
+    textColor: 'whitesmoke',
+    backgroundColor: '#111',
+};
+const whiteTheme = {
+    textColor: '#111',
+    backgroundColor: 'whitesmoke',
+};
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+    <React.StrictMode>
+        <ThemeProvider theme={darkTheme}>
+            <App />
+        </ThemeProvider>
+    </React.StrictMode>
+);
+```
+
+## Typescript
+
+-   타입스크립트란 자바스크립트를 기반으로 한 프로그래밍 언어
+-   프로그래밍 언어가 작동하기 전 타입을 확인하는 역할을 수행 ( 일종의 안전장치 )
+
+```
+const plus = (a : number , b:number):number => a + b
+```
+
+tsx 설치 명령어 : npx create-react-app "project-name" --template=typescript
+
+타입스크립트의 styled-components 설치 명령어 : npm i --save-ev @types/styled-components
