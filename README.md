@@ -1,4 +1,4 @@
-## Styled-components
+## 1. Styled-components
 
 설치 명령어 : npm i styled-components
 
@@ -61,6 +61,56 @@ function App() {
         </Container>
     );
 }
+```
 
+-   태그 고유 속성값 지정하고 싶은 경우
 
 ```
+const Input = styled.input.attrs({required : true})`
+background-color:tomato;
+`
+```
+
+-   애니메이션
+
+import styled, { keyframes } from 'styled-components'; // 상단에 keyframes import
+
+```
+<!-- 사용 예시 -->
+const rotateAnimation = keyframes`
+0%{
+    transform:rotate(0deg);
+}
+100%{
+    transform:rotate(360deg);
+}
+`;
+
+const Box = styled.div`
+animation : ${rotateAnimation} 1s infinite`
+```
+
+-   컴포넌트 내부 셀렉터 속성 지정도 가능하다
+
+```
+const Box = styled.div`
+    animation : ${rotateAnimation} 1s infinite
+    span{
+        font-size:10px;
+    }
+`
+function App() {
+    return (
+        <Wrapper>
+            <Box>
+                <span>하이</span>
+            </Box>
+        </Wrapper>
+    );
+}
+```
+
+-   Theme
+
+1. index.js 에서 import { ThemeProvider } from 'styled-components'; // ThemeProvider import
+2. <App /> 을 <ThemeProvider><ThemeProvider> 로 감싸주기
