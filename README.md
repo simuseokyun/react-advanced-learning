@@ -135,7 +135,7 @@ root.render(
 );
 ```
 
-## Typescript
+## 2. Typescript
 
 -   타입스크립트란 자바스크립트를 기반으로 한 프로그래밍 언어
 -   프로그래밍 언어가 작동하기 전 타입을 확인하는 역할을 수행 ( 일종의 안전장치 )
@@ -147,3 +147,46 @@ const plus = (a : number , b:number):number => a + b
 tsx 설치 명령어 : npx create-react-app "project-name" --template=typescript
 
 타입스크립트의 styled-components 설치 명령어 : npm i --save-ev @types/styled-components
+
+-   interface ( default props / optional props)
+
+```
+<!-- default props 사용 예시 -->
+interface Props{
+    name : string,
+    age: number
+}
+
+<!-- optional props(선택적) 사용 예시 -->
+interface Props{
+     name ?: string,
+     age: number
+}
+```
+
+-   참고사항
+    ?? 연산자는 앞의 값이 null/undefined 인 경우 뒤에 값을 반환하고 아니라면 앞의 값 반환
+
+```
+<!-- 사용 예시 -->
+const variable = null;
+const result = variable ?? "default value";
+console.log(result); // "default value"
+```
+
+-   매개 변수에 기본 값을 지정해줄 수 도 있다
+
+```
+interface CircleProps {
+    readonly bgColor: string;
+    readonly borderColor?: string;
+    text?: string;
+}
+function Circle({ bgColor, borderColor, text = 'default text' }: CircleProps) {
+    return (
+        <Container bgColor={bgColor} borderColor={borderColor ?? 'white'}>
+            {text}
+        </Container>
+    );
+}
+```
