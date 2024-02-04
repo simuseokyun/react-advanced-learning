@@ -1,31 +1,37 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
-const Container = styled.div`
+const Wrapper = styled.div`
     display: flex;
 `;
-
+const rotateAnimation = keyframes`
+0%{
+    transform:rotate(0deg);
+}
+100%{
+    transform:rotate(360deg);
+} 
+`;
 const Box = styled.div`
-    width: 500px;
-    height: 500px;
-    background-color: ${(props) => props.bgColor};
-`;
-const Circle = styled(Box)`
-    border-radius: 500px;
-`;
-
-const Text = styled.span`
-    font-size: 20px;
-    color: white;
+    width: 200px;
+    height: 200px;
+    background-color: tomato;
+    animation: ${rotateAnimation} 1s linear infinite;
+    span {
+        font-size: 20px;
+        &:hover {
+            font-size: 40px;
+        }
+    }
 `;
 
 function App() {
     return (
-        <Container>
-            <Box bgColor="teal"></Box>
-            <Box bgColor="tomato"></Box>
-            <Circle bgColor="red" />
-        </Container>
+        <Wrapper>
+            <Box>
+                <span>하이</span>
+            </Box>
+        </Wrapper>
     );
 }
 
