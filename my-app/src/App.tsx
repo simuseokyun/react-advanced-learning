@@ -1,13 +1,9 @@
 import styled from 'styled-components';
 import Circle from './Circle';
+import Router from './Router';
 
 function App() {
-    return (
-        <>
-            <Circle bgColor="teal" borderColor="black" text="i write text" />
-            <Circle bgColor="tomato" />
-        </>
-    );
+    return <Router />;
 }
 
 export default App;
