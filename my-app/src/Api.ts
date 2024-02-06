@@ -10,10 +10,9 @@ export const fetchCoinInfo = async (CoinId: string) => {
     const json = await response.json();
     return json;
 };
-export const fetctCoinTickers = async (CoinId: string) => {
+export const fetchCoinTickers = async (CoinId: string) => {
     const response = await fetch(`https://api.coinpaprika.com/v1/tickers/${CoinId}`);
     const json = await response.json();
-
     return json;
 };
 export const fetchCoinHistory = async (CoinId: string) => {

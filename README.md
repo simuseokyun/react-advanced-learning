@@ -266,7 +266,7 @@ command + d : 같은 요소 선택
 
 # 4. Nested Route
 
-useRouterMatch 는 현재 어떤 url에 위치하고 있는지 알려줌
+useRouterMatch 는 현재 어떤 url에 위치하고 있는지 파악하게 해주는 훅 (react-router-dom@6 에선 useMatch()로 대체)
 
 # 5. React-query
 
@@ -274,9 +274,7 @@ useRouterMatch 는 현재 어떤 url에 위치하고 있는지 알려줌
 
 -   react-query는 "global state"를 건드리지 않고 React 및 React Native 애플리케이션에서 데이터를 가져오고, 캐시하고, 업데이트합니다.
 
-참고사항
-
--   Cache란 자주 사용하는 데이터나 값을 미리 복사해 놓는 임시 장소를 가리킨다. 아래와 같은 저장공간 계층 구조에서 확인할 수 있듯이, 캐시는 저장 공간이 작고 비용이 비싼 대신 빠른 성능을 제공한다.
+참고사항 : Cache란 자주 사용하는 데이터나 값을 미리 복사해 놓는 임시 장소를 가리킨다. 아래와 같은 저장공간 계층 구조에서 확인할 수 있듯이, 캐시는 저장 공간이 작고 비용이 비싼 대신 빠른 성능을 제공한다.
 
 설치 명령어 : npm i react-query
 
@@ -298,3 +296,5 @@ const queryClient = new QueryClient();
      데이터 호출이 완료되면 isLoading = false / 호출 중이라면 isLoaing = true
 
 ```
+
+-   useQuery 의 파라미터엔 [고유한 key값 , fetcher함수 , 선택적인 Object]

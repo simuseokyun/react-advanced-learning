@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { fetchCoins } from '../Api';
+import Helmet from 'react-helmet';
 
 const Container = styled.div`
     padding: 20px 20px;
@@ -76,9 +77,10 @@ const Coins = () => {
     // }, []);
     return (
         <Container>
-            <Header>
-                <Title>코인</Title>
-            </Header>
+            <Helmet>
+                <title>코인</title>
+            </Helmet>
+            <Header></Header>
             {isLoading ? (
                 <LoadText>Loading...</LoadText>
             ) : (

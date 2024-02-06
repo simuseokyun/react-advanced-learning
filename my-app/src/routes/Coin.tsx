@@ -4,7 +4,8 @@ import Price from './Price';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
-import { fetchCoinInfo } from '../Api';
+import { Helmet } from 'react-helmet';
+import { fetchCoinHistory, fetchCoinInfo, fetchCoinTickers } from '../Api';
 
 interface RouterParams {
     CoinId: string;
@@ -157,15 +158,22 @@ export const Coin = () => {
     const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(['coins', CoinId], () =>
         fetchCoinInfo(CoinId)
     ); // key는 고유하게 식별해주는 값이어야 함
-    const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(['tickers', CoinId], () =>
-        fetchCoinInfo(CoinId)
+    const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
+        ['tickers', CoinId],
+        () => fetchCoinTickers(CoinId),
+        {
+            refetchInterval: 5000,
+        }
     );
     console.log(tickersData, infoData);
     const loading = infoLoading || tickersLoading;
     return (
         <Container>
+            <Helmet>
+                <title>{state?.name ? state.name : null}</title>
+            </Helmet>
             <Header>
-                <Title>코인 : {CoinId || 'Loading...'}</Title>
+                <Title> {state?.name ? state.name : null}</Title>
             </Header>
             {loading ? <h1 style={{ color: 'white' }}>loading...</h1> : <span></span>}
             <Overview>
@@ -179,7 +187,7 @@ export const Coin = () => {
                 </OverviewItem>
                 <OverviewItem>
                     <span>Price : </span>
-                    <span>${infoData?.name}</span>
+                    <span>${tickersData?.quotes.USD.price.toFixed(2)}</span>
                 </OverviewItem>
             </Overview>
             <Description>{infoData?.description}</Description>
