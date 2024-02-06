@@ -1,6 +1,11 @@
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
+
+interface RouterParams {
+    CoinId: string;
+}
 
 export const Coin = () => {
-    const id = useParams();
-    return <h1>Coin</h1>;
+    const { CoinId } = useParams<RouterParams>();
+    return <h1>Coin : {CoinId}</h1>;
 };
