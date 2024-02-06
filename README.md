@@ -1,3 +1,7 @@
+## Todo
+
+-   모든 섹션 다 수강 후 4강 다시보기
+
 ## 1. Styled-components
 
 설치 명령어 : npm i styled-components
@@ -135,6 +139,26 @@ root.render(
 );
 ```
 
+-   모든 컴포넌트에 CSS 적용하고 싶을 떄 ( 예를 들면 reset.css )
+    createGlobalStyle import 후 style-components 형식으로 스타일 작성
+
+```
+const GlobalStyle = createGlobalStyle`
+  body{
+   color:red
+  }
+`;
+
+function App() {
+    return (
+        <>
+            <GlobalStyle />
+            <Router />
+        </>
+    );
+}
+```
+
 ## 2. Typescript
 
 -   타입스크립트란 자바스크립트를 기반으로 한 프로그래밍 언어
@@ -189,4 +213,88 @@ function Circle({ bgColor, borderColor, text = 'default text' }: CircleProps) {
         </Container>
     );
 }
+```
+
+-   타입 추론
+    타입 스크립트는 타입을 따로 지정해주지 않아도 자체적으로 타입을 추론해준다 (초기값을 참조)
+
+```
+<!-- 사용 예시 -->
+const [counter,setCounter] = useState(0) // 초기값이 0이므로 자체적으로 coutner/setCounter을 number타입과 number를 return하는 함수로 추론
+setCounter("string") // Error
+
+예외적으로 number와 string타입을 모두 넣고 싶다면
+const [counter,setCounter] = useState<number | string>(0) // 제네릭 사용
+```
+
+# 3. React-router-dom
+
+-   useParams : url값에 접근하고 싶을 때 사용하는 리액트 훅
+
+```
+const { id }  = useParams()
+// 허나 타입스크립트에선 useParams 를 빈 객체로 인식하기 때문에 타입 정의가 필요하다
+interface RouterParams {
+    CoinId: string;
+}
+const CoinId = useParams<RouterParams>()
+// path="/:~~" 와 const { ~~ }  = useParams() 부분을 통일시켜 줘야 한다
+```
+
+-   Route 형태
+
+```
+const App = () => {
+	return (
+		<div className='App'>
+			<BrowserRouter> // BrowserRouter 는 index 파일로 이동해 <App/ > 을 감싸주는 것으로도 대체 가능
+				<Header />
+				<Routes>
+					<Route path="/" element={<Main />}></Route>
+					<Route path="/product/*" element={<Product />}></Route>
+					{/* 상단에 위치하는 라우트들의 규칙을 모두 확인, 일치하는 라우트가 없는경우 처리 */}
+					<Route path="*" element={<NotFound />}></Route>
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
+};
+```
+
+option + shifr + i : 선택한 영역 맨 우측 포커싱
+command + d : 같은 요소 선택
+
+# 4. Nested Route
+
+useRouterMatch 는 현재 어떤 url에 위치하고 있는지 알려줌
+
+# 5. React-query
+
+-   React 애플리케이션에서 서버 state를 fetching caching, synchronizing, updating할 수 있도록 도와주는 라이브러리
+
+-   react-query는 "global state"를 건드리지 않고 React 및 React Native 애플리케이션에서 데이터를 가져오고, 캐시하고, 업데이트합니다.
+
+참고사항
+
+-   Cache란 자주 사용하는 데이터나 값을 미리 복사해 놓는 임시 장소를 가리킨다. 아래와 같은 저장공간 계층 구조에서 확인할 수 있듯이, 캐시는 저장 공간이 작고 비용이 비싼 대신 빠른 성능을 제공한다.
+
+설치 명령어 : npm i react-query
+
+index 파일로 이동 후 import
+
+```
+const queryClient = new QueryClient();
+<React.StrictMode>
+{/_ <Form /> _/}
+<QueryClientProvider client={queryClient}>
+<ThemeProvider theme={basicTheme}>
+<App />
+</ThemeProvider>
+</QueryClientProvider>
+</React.StrictMode>
+
+*Coin.tsx
+    const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
+     데이터 호출이 완료되면 isLoading = false / 호출 중이라면 isLoaing = true
+
 ```
