@@ -16,6 +16,13 @@ const Title = styled.h1`
     align-items: center;
     color: ${(props) => props.theme.accentColor};
 `;
+const BackBtn = styled.button`
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 30px;
+    left: 30px;
+`;
 const Overview = styled.div`
     display: flex;
     justify-content: space-between;
@@ -53,6 +60,7 @@ const Container = styled.div`
     background-color: black;
     height: 100%;
     text-align: center;
+    position: relative;
 `;
 const Tabs = styled.div`
     display: grid;
@@ -174,7 +182,13 @@ export const Coin = () => {
             </Helmet>
             <Header>
                 <Title> {state?.name ? state.name : null}</Title>
+                <Link to="/">
+                    <BackBtn>
+                        <span className="material-symbols-outlined">arrow_back_ios</span>
+                    </BackBtn>
+                </Link>
             </Header>
+
             {loading ? <h1 style={{ color: 'white' }}>loading...</h1> : <span></span>}
             <Overview>
                 <OverviewItem>
