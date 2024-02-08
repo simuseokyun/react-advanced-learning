@@ -9,7 +9,7 @@ const Container = styled.div`
     padding: 20px 20px;
     max-width: 480px;
     margin: 0 auto;
-    background-color: black;
+    background-color: ${(props) => props.theme.bgColor};
     height: 100%;
 `;
 const Header = styled.header`
@@ -63,7 +63,7 @@ interface ICoin {
 }
 
 const Coins = () => {
-    const { isLoading, data } = useQuery<ICoin[]>('allCoins', fetchCoins);
+    const { isLoading, data } = useQuery<ICoin[]>('allCoins', () => fetchCoins());
     // const [coin, setCoins] = useState<CoinInterface[]>([]);
     // const [loading, setLoading] = useState(true);
     // const getData = async () => {

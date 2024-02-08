@@ -1,6 +1,9 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import Circle from './Circle';
-import Router from './Router';
+import Router from './Router'; // 전체를 가져오는 경우 {} 생략 가능
+import { ThemeProvider } from 'styled-components'; // 모듈 중 하나를 가져오는 경우 {} 안에 기입
+import { darkTheme, lightTheme } from './theme';
+import { useState } from 'react';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -70,10 +73,17 @@ a{
 `;
 
 function App() {
+    const [isDark, setIsDark] = useState(false);
+    const toggleDark = () => {
+        setIsDark((current) => !current);
+    };
     return (
         <>
-            <GlobalStyle />
-            <Router />
+            <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+                <button onClick={toggleDark}>Change Mode</button>
+                <GlobalStyle />
+                <Router />
+            </ThemeProvider>
         </>
     );
 }

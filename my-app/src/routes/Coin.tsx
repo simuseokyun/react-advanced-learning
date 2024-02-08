@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
 import { Helmet } from 'react-helmet';
-import { fetchCoinHistory, fetchCoinInfo, fetchCoinTickers } from '../Api';
+import { fetchCoinInfo, fetchCoinTickers } from '../Api';
 
 interface RouterParams {
     CoinId: string;
@@ -57,7 +57,7 @@ const Container = styled.div`
     padding: 20px 20px;
     max-width: 480px;
     margin: 0 auto;
-    background-color: black;
+    background-color: ${(props) => props.theme.bgColor};
     height: 100%;
     text-align: center;
     position: relative;
@@ -173,7 +173,7 @@ export const Coin = () => {
             refetchInterval: 5000,
         }
     );
-    console.log(tickersData, infoData);
+
     const loading = infoLoading || tickersLoading;
     return (
         <Container>
@@ -181,6 +181,7 @@ export const Coin = () => {
                 <title>{state?.name ? state.name : null}</title>
             </Helmet>
             <Header>
+                <button onClick={toggleDark}>Change Mode</button>
                 <Title> {state?.name ? state.name : null}</Title>
                 <Link to="/">
                     <BackBtn>

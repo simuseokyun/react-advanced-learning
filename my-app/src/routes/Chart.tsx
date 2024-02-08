@@ -17,10 +17,9 @@ interface IHistory {
 }
 const Chart = ({ CoinId }: ChartProps) => {
     const { isLoading, data } = useQuery<IHistory[]>(['ohlcv', CoinId], () => fetchCoinHistory(CoinId));
-    console.log(data);
     return (
         <div>
-            {isLoading ? (
+            {/* {isLoading ? (
                 'Loading chart...'
             ) : (
                 <ApexCharts
@@ -43,7 +42,7 @@ const Chart = ({ CoinId }: ChartProps) => {
                         },
                     }}
                 />
-            )}
+            )} */}
         </div>
     );
 };

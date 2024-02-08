@@ -300,3 +300,9 @@ const queryClient = new QueryClient();
 -   useQuery 의 파라미터엔 [고유한 key값 , fetcher함수 , 선택적인 Object]
 
 참고사항 : [Chart 사이트](https://apexcharts.com/)
+
+# 6. Recoil
+
+-   Recoil 이란 React 전용 전역 상태관리 라이브러리 / 상태 관리 라이브러리란 말 그대로 state를 관리를 목적으로 만들어진 라이브러리 ( 대표적인 예시 : Redux)
+
+서비스의 규모가 커질수록 관리해야할 state가 많아지고 이를 체계적으로 관리하기 위해 상태 관리라는 라이브러리를 사용 해야 한다
