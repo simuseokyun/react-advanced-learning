@@ -181,7 +181,6 @@ export const Coin = () => {
                 <title>{state?.name ? state.name : null}</title>
             </Helmet>
             <Header>
-                <button onClick={toggleDark}>Change Mode</button>
                 <Title> {state?.name ? state.name : null}</Title>
                 <Link to="/">
                     <BackBtn>

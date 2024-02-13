@@ -2,8 +2,10 @@ import styled, { createGlobalStyle } from 'styled-components';
 import Circle from './Circle';
 import Router from './Router'; // 전체를 가져오는 경우 {} 생략 가능
 import { ThemeProvider } from 'styled-components'; // 모듈 중 하나를 가져오는 경우 {} 안에 기입
+import { useRecoilValue } from 'recoil';
 import { darkTheme, lightTheme } from './theme';
 import { useState } from 'react';
+import { isDarkAtom } from './atoms';
 
 const GlobalStyle = createGlobalStyle`
 
@@ -73,14 +75,10 @@ a{
 `;
 
 function App() {
-    const [isDark, setIsDark] = useState(false);
-    const toggleDark = () => {
-        setIsDark((current) => !current);
-    };
+    const isDark = useRecoilValue(isDarkAtom);
     return (
         <>
             <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-                <button onClick={toggleDark}>Change Mode</button>
                 <GlobalStyle />
                 <Router />
             </ThemeProvider>

@@ -305,4 +305,21 @@ const queryClient = new QueryClient();
 
 -   Recoil 이란 React 전용 전역 상태관리 라이브러리 / 상태 관리 라이브러리란 말 그대로 state를 관리를 목적으로 만들어진 라이브러리 ( 대표적인 예시 : Redux)
 
-서비스의 규모가 커질수록 관리해야할 state가 많아지고 이를 체계적으로 관리하기 위해 상태 관리라는 라이브러리를 사용 해야 한다
+서비스의 규모가 커질수록 관리해야할 state가 많아지고 이를 체계적으로 관리하기 위해 상태 관리라는 라이브러리를 사용 해야 한다.
+
+설치 명령어 : npm i recoil
+
+import 후 RecoilRoot> 로 App/> 감싸주기
+
+순서 : Recoil.ts 파일 생성 > Atom 생성 > Atom을 필요로 하는 컴포넌트에서 useRecoilValue 를 통해 import
+
+value 수정은 useSetRecoilState(변경할 Atom Name) // setUseState 처럼 활용
+
+
+6. React-hook-form
+
+- Form 내부에서 입력해야 할 값이 많아질수록 관리해야 하는 state 도 늘어나고 입력할때마다 컴포넌트 전체가 리렌더링 되기 때문에 불필요한 연산이 발생하게 된다.거기에 입력 폼의 유효성 검사 까지 필요할 경우 에러 상태를 관리할 state와 검증 함수가 늘어나는 등 코드는 더욱 길어지고, 유지보수가 어려워지게 된다. react-hook-form을 사용하면 이러한 문제들을 해결 할 수 있다
+
+
+
+설치 명령어 : npm i react-hook-form
