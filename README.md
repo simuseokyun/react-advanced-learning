@@ -311,7 +311,7 @@ const queryClient = new QueryClient();
 
 import 후 RecoilRoot> 로 App/> 감싸주기
 
-순서 : Recoil.ts 파일 생성 > Atom 생성 > Atom을 필요로 하는 컴포넌트에서 useRecoilValue 를 통해 import
+순서 : atoms.ts 파일 생성 > Atom 생성 > Atom을 필요로 하는 컴포넌트에서 useRecoilValue 를 통해 import
 
 value 수정은 useSetRecoilState(변경할 Atom Name) // setUseState 처럼 활용
 
