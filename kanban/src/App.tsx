@@ -15,13 +15,14 @@ const GlobalStyle = createGlobalStyle`
 `;
 const Wrapper = styled.div`
     display: flex;
-    max-width: 500px;
+    max-width: 1000px;
     width: 100%;
     margin: 0 auto;
     justify-content: center;
     align-items: center;
     height: 100vh;
 `;
+
 const Boards = styled.div`
     display: grid;
     width: 100%;
@@ -31,8 +32,37 @@ const Boards = styled.div`
 
 function App() {
     const [toDos, setToDos] = useRecoilState(toDoState);
-    const onDragEnd = ({ destination, source, draggableId }: DropResult) => {
+    const onDragEnd = (info: DropResult) => {
+        const { destination, source } = info;
+        console.log(destination, source);
         if (!destination) return;
+        if (destination?.droppableId === source.droppableId) {
+            setToDos((oldToDos) => {
+                const boardCopy = [...oldToDos[source.droppableId]];
+                const taskObj = boardCopy[source.index];
+                boardCopy.splice(source.index, 1);
+                boardCopy.splice(destination?.index, 0, taskObj);
+                return {
+                    ...oldToDos,
+                    [source.droppableId]: boardCopy,
+                };
+            });
+        }
+        if (destination?.droppableId !== source.droppableId) {
+            setToDos((allBoard) => {
+                const sourceBoard = [...allBoard[source.droppableId]];
+                const targetBoard = [...allBoard[destination.droppableId]];
+                const taskObj = sourceBoard[source.index];
+
+                sourceBoard.splice(source.index, 1);
+                targetBoard.splice(destination?.index, 0, taskObj);
+                return {
+                    ...allBoard,
+                    [source.droppableId]: sourceBoard,
+                    [destination.droppableId]: targetBoard,
+                };
+            });
+        }
     };
     return (
         <>
@@ -40,7 +70,7 @@ function App() {
             <DragDropContext onDragEnd={onDragEnd}>
                 <Wrapper>
                     <Boards>
-                        {Object.keys(toDos).map((boardId) => (
+                        {Object.keys(toDos)?.map((boardId) => (
                             <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
                         ))}
                     </Boards>

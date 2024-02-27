@@ -3,24 +3,36 @@ import styled from 'styled-components';
 import React from 'react';
 
 interface IDraggableCard {
-    toDo: string;
-    i: number;
+    toDoId: number;
+    toDoText: string;
+    index: number;
 }
-const Card = styled.div`
-    background-color: ${(props) => props.theme.cardColor};
-    padding: 5px 10px;
+const Wrapper = styled.div``;
+const Card = styled.div<{ isDragging: boolean }>`
+    border-radius: 5px;
     margin-bottom: 5px;
+    padding: 10px 10px;
+    background-color: ${(props) => props.theme.cardColor};
+    padding: 10px;
+    background-color: ${(props) => (props.isDragging ? '#e4f2ff' : props.theme.cardColor)};
+    box-shadow: ${(props) => (props.isDragging ? '0px 2px 5px rgba(0, 0, 0, 0.05)' : 'none')};
 `;
-
-function DraggableCard({ toDo, i }: IDraggableCard) {
+function DraggableCard({ toDoId, toDoText, index }: IDraggableCard) {
     return (
-        <Draggable draggableId={toDo} index={i} key={toDo}>
-            {(magic) => (
-                <Card ref={magic.innerRef} {...magic.draggableProps} {...magic.dragHandleProps}>
-                    {toDo}
-                </Card>
-            )}
-        </Draggable>
+        <Wrapper>
+            <Draggable draggableId={toDoId + ''} index={toDoId} key={toDoText}>
+                {(magic, snapshot) => (
+                    <Card
+                        isDragging={snapshot.isDragging}
+                        ref={magic.innerRef}
+                        {...magic.draggableProps}
+                        {...magic.dragHandleProps}
+                    >
+                        {toDoText}
+                    </Card>
+                )}
+            </Draggable>
+        </Wrapper>
     );
 }
 
