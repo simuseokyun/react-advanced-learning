@@ -21,6 +21,7 @@
 //     },
 // });
 import { atom } from 'recoil';
+
 export interface IToDo {
     id: number;
     text: string;
@@ -32,7 +33,7 @@ interface IToDoState {
 export const toDoState = atom<IToDoState>({
     key: 'toDoState',
     default: {
-        toDo: [{ id: 11, text: 'hello' }],
+        'to do': [{ id: 1, text: 'hello' }],
         doing: [],
         done: [],
     },

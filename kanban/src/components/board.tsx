@@ -52,12 +52,9 @@ function Board({ toDos, boardId }: IBoardProps) {
     //     inputRef.current?.focus();
     // };
     const onValid = ({ toDo }: IForm) => {
-        const newToDo = {
-            id: Date.now(),
-            text: toDo,
-        };
-        setToDos((allBoards) => {
-            return { ...allBoards, [boardId]: [...allBoards[boardId], newToDo] };
+        setToDos((allData) => {
+            const newToDo = { id: Date.now(), text: toDo };
+            return { ...allData, [boardId]: [newToDo, ...allData[boardId]] };
         });
         setValue('toDo', '');
     };
@@ -74,8 +71,8 @@ function Board({ toDos, boardId }: IBoardProps) {
             <Droppable droppableId={boardId}>
                 {(magic, snapshot) => (
                     <Area isDraggingOver={snapshot.isDraggingOver} ref={magic.innerRef} {...magic.droppableProps}>
-                        {toDos?.map((toDo, index) => {
-                            return <DraggableCard key={toDo.id} index={index} toDoId={toDo.id} toDoText={toDo.text} />;
+                        {toDos.map((toDo, index) => {
+                            return <DraggableCard key={toDo.id} i={index} toDoId={toDo.id} toDoText={toDo.text} />;
                         })}
                         {magic.placeholder}
                     </Area>

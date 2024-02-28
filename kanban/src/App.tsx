@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { Snapshot, useRecoilState, useRecoilValue } from 'recoil';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     }
 `;
 const Wrapper = styled.div`
+    position: relative;
     display: flex;
     max-width: 1000px;
     width: 100%;
@@ -30,10 +31,37 @@ const Boards = styled.div`
     gap: 10px;
 `;
 
+const Delete = styled.div`
+    width: 100px;
+    height: 100px;
+    border-radius: 100px;
+    position: absolute;
+    top: 20px;
+    background-color: red;
+    left: 20px;
+`;
+interface IArea {
+    isDraggingOver: boolean;
+}
+interface IAreaa {
+    isDragging: boolean;
+}
+const Area = styled.div<IArea>`
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: red;
+`;
+const Areaa = styled.div<IAreaa>``;
+
 function App() {
     const [toDos, setToDos] = useRecoilState(toDoState);
     const onDragEnd = (info: DropResult) => {
         const { destination, source } = info;
+        console.log(info);
+        console.log(toDos);
         console.log(destination, source);
         if (!destination) return;
         if (destination?.droppableId === source.droppableId) {
@@ -49,19 +77,27 @@ function App() {
             });
         }
         if (destination?.droppableId !== source.droppableId) {
-            setToDos((allBoard) => {
-                const sourceBoard = [...allBoard[source.droppableId]];
-                const targetBoard = [...allBoard[destination.droppableId]];
-                const taskObj = sourceBoard[source.index];
+            if (destination?.droppableId === 'Delete') {
+                setToDos((allData) => {
+                    const boardCopy = [...allData[source.droppableId]];
+                    boardCopy.splice(source.index, 1);
+                    return { ...allData, [source.droppableId]: boardCopy };
+                });
+            } else {
+                setToDos((allBoard) => {
+                    const sourceBoard = [...allBoard[source.droppableId]];
+                    const targetBoard = [...allBoard[destination.droppableId]];
+                    const taskObj = sourceBoard[source.index];
 
-                sourceBoard.splice(source.index, 1);
-                targetBoard.splice(destination?.index, 0, taskObj);
-                return {
-                    ...allBoard,
-                    [source.droppableId]: sourceBoard,
-                    [destination.droppableId]: targetBoard,
-                };
-            });
+                    sourceBoard.splice(source.index, 1);
+                    targetBoard.splice(destination?.index, 0, taskObj);
+                    return {
+                        ...allBoard,
+                        [source.droppableId]: sourceBoard,
+                        [destination.droppableId]: targetBoard,
+                    };
+                });
+            }
         }
     };
     return (
@@ -74,6 +110,28 @@ function App() {
                             <Board boardId={boardId} key={boardId} toDos={toDos[boardId]} />
                         ))}
                     </Boards>
+                    <Droppable droppableId="Delete">
+                        {(magic, snpashot) => {
+                            return (
+                                <Area
+                                    isDraggingOver={snpashot.isDraggingOver}
+                                    ref={magic.innerRef}
+                                    {...magic.droppableProps}
+                                >
+                                    <Draggable draggableId="Delete2" index={10}>
+                                        {(magic, snapshot) => (
+                                            <Areaa
+                                                isDragging={snapshot.isDragging}
+                                                ref={magic.innerRef}
+                                                {...magic.draggableProps}
+                                                {...magic.dragHandleProps}
+                                            ></Areaa>
+                                        )}
+                                    </Draggable>
+                                </Area>
+                            );
+                        }}
+                    </Droppable>
                 </Wrapper>
             </DragDropContext>
         </>

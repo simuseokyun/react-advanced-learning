@@ -5,7 +5,7 @@ import React from 'react';
 interface IDraggableCard {
     toDoId: number;
     toDoText: string;
-    index: number;
+    i: number;
 }
 const Wrapper = styled.div``;
 const Card = styled.div<{ isDragging: boolean }>`
@@ -17,10 +17,10 @@ const Card = styled.div<{ isDragging: boolean }>`
     background-color: ${(props) => (props.isDragging ? '#e4f2ff' : props.theme.cardColor)};
     box-shadow: ${(props) => (props.isDragging ? '0px 2px 5px rgba(0, 0, 0, 0.05)' : 'none')};
 `;
-function DraggableCard({ toDoId, toDoText, index }: IDraggableCard) {
+function DraggableCard({ toDoId, toDoText, i }: IDraggableCard) {
     return (
         <Wrapper>
-            <Draggable draggableId={toDoId + ''} index={toDoId} key={toDoText}>
+            <Draggable draggableId={toDoId + ''} index={i}>
                 {(magic, snapshot) => (
                     <Card
                         isDragging={snapshot.isDragging}
