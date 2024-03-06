@@ -1,9 +1,10 @@
 import React from 'react';
 import { Snapshot, useRecoilState, useRecoilValue } from 'recoil';
 import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
-import { createGlobalStyle } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
-import { toDoState } from './atoms';
+import { onTheme, toDoState } from './atoms';
+import { lightTheme, darkTheme } from './theme';
 import Board from './components/board';
 
 const GlobalStyle = createGlobalStyle`
@@ -57,7 +58,11 @@ const Area = styled.div<IArea>`
 const Areaa = styled.div<IAreaa>``;
 
 function App() {
+    const [dark, setDark] = useRecoilState(onTheme);
     const [toDos, setToDos] = useRecoilState(toDoState);
+    const onDarkMode = () => {
+        setDark((prev) => !prev);
+    };
     const onDragEnd = (info: DropResult) => {
         const { destination, source } = info;
         console.log(info);
@@ -101,9 +106,10 @@ function App() {
         }
     };
     return (
-        <>
+        <ThemeProvider theme={dark ? darkTheme : lightTheme}>
             <GlobalStyle />
             <DragDropContext onDragEnd={onDragEnd}>
+                <button onClick={onDarkMode}>다크모드</button>
                 <Wrapper>
                     <Boards>
                         {Object.keys(toDos)?.map((boardId) => (
@@ -134,7 +140,7 @@ function App() {
                     </Droppable>
                 </Wrapper>
             </DragDropContext>
-        </>
+        </ThemeProvider>
     );
 }
 

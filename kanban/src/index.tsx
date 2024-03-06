@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { theme } from './theme';
+import { lightTheme } from './theme';
 
 import App from './App';
 import { RecoilRoot } from 'recoil';
@@ -10,7 +10,7 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
     // <React.StrictMode>
     <RecoilRoot>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={lightTheme}>
             <App />
         </ThemeProvider>
     </RecoilRoot>

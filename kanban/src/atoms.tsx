@@ -21,6 +21,7 @@
 //     },
 // });
 import { atom } from 'recoil';
+// import { recoilPersist } from 'recoil-persist';
 
 export interface IToDo {
     id: number;
@@ -37,4 +38,9 @@ export const toDoState = atom<IToDoState>({
         doing: [],
         done: [],
     },
+});
+
+export const onTheme = atom({
+    key: 'Theme',
+    default: false,
 });

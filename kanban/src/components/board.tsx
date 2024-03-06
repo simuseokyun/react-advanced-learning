@@ -6,9 +6,11 @@ import { useForm } from 'react-hook-form';
 import { toDoState } from '../atoms';
 import { useSetRecoilState } from 'recoil';
 import { IToDo } from '../atoms';
+import { json } from 'stream/consumers';
 
 interface IForm {
     toDo: string;
+    local: object;
 }
 
 const Wrapper = styled.div`
@@ -56,6 +58,7 @@ function Board({ toDos, boardId }: IBoardProps) {
             const newToDo = { id: Date.now(), text: toDo };
             return { ...allData, [boardId]: [newToDo, ...allData[boardId]] };
         });
+
         setValue('toDo', '');
     };
     const Form = styled.form`
@@ -71,7 +74,7 @@ function Board({ toDos, boardId }: IBoardProps) {
             <Droppable droppableId={boardId}>
                 {(magic, snapshot) => (
                     <Area isDraggingOver={snapshot.isDraggingOver} ref={magic.innerRef} {...magic.droppableProps}>
-                        {toDos.map((toDo, index) => {
+                        {toDos?.map((toDo, index) => {
                             return <DraggableCard key={toDo.id} i={index} toDoId={toDo.id} toDoText={toDo.text} />;
                         })}
                         {magic.placeholder}
